@@ -3,16 +3,14 @@
 clear; clc;
 close all;
 
-
-
 device=0;
 if(device)
-d = daqlist;
-d{1, "DeviceInfo"};
-dq = daq("ni");
-    
-addoutput(dq, "Dev1", "ao1", "Voltage");       
-ctr=addoutput(dq,"Dev1","ctr0","PulseGeneration"); 
+ d = daqlist;
+ d{1, "DeviceInfo"};
+ dq = daq("ni");
+ 
+ addoutput(dq, "Dev1", "ao1", "Voltage");
+ ctr=addoutput(dq,"Dev1","ctr0","PulseGeneration");
 end
 
 PLIF_fps=7.5; % hz, frequency of the PLIF
@@ -51,7 +49,7 @@ i_mid=floor(0.5*PLIF_NLEN); % this index the start of the second image/end of fi
 offset=-20;
 
 % define start and end points in time
-im1_start=1;     im1_end=floor(PLIF_EXE/1e3*sps); 
+im1_start=1;     im1_end=floor(PLIF_EXE/1e3*sps);
 im2_start=i_mid; im2_end=i_mid+floor(PLIF_EXE/1e3*sps);
 
 piv1_end=im1_end-offset;
@@ -64,7 +62,7 @@ piv2_end=piv2_start+PLIF_N-1;
 msig=ones(1,PLIF_NLEN)*(min(PLIF_M)-2.0);
 msig(piv1_start:piv1_end)=PLIF_M;
 msig(piv2_start:piv2_end)=PLIF_M;
- 
+
 SL=length(msig); % signal length
 
 fprintf('min PLIF exposure time \t = %5.3f (ms) \n',(piv1_end-piv1_start)/sps*1e3);
@@ -87,23 +85,23 @@ imsg(im2_start:im2_end)=cv+1;
 
 showplot=1;
 if(showplot)
-    p(1)=plot((1:length(msig))/sps,msig,'k'); %MIRROR SIGNAL
-    hold on;
-    p(2)=plot((1:length(msig))/sps,csig,'r'); % sheet duration
-    p(3)=plot((1:length(msig))/sps,imsg,'g'); %
-    
-    hold on
-    plot(piv1_start/sps,0,'or');
-    plot(piv1_end/sps,0,'xr');
-    
-    plot(piv2_start/sps,0,'ob');
-    plot(piv2_end/sps,0,'xb');
-    ylim([-10 10]);
-    
-    ylabel('voltage');
-    xlabel('s');
-    legend(p,{'mirror signal','sheet duration','PIV image'});
-    
+ p(1)=plot((1:length(msig))/sps,msig,'k'); %MIRROR SIGNAL
+ hold on;
+ p(2)=plot((1:length(msig))/sps,csig,'r'); % sheet duration
+ p(3)=plot((1:length(msig))/sps,imsg,'g'); %
+ 
+ hold on
+ plot(piv1_start/sps,0,'or');
+ plot(piv1_end/sps,0,'xr');
+ 
+ plot(piv2_start/sps,0,'ob');
+ plot(piv2_end/sps,0,'xb');
+ ylim([-10 10]);
+ 
+ ylabel('voltage');
+ xlabel('s');
+ legend(p,{'mirror signal','sheet duration','PIV image'});
+ 
 end
 
 %% Prepare the signal for the DAQ
@@ -122,10 +120,12 @@ ctr.InitialDelay=toff/1e3;
 ctr.DutyCycle=0.1;
 
 %load the signal to the DAQ, and await go signal
-flush(dq)
-preload(dq,output);
-pause()
-start(dq);
+if(device)
+ flush(dq)
+ preload(dq,output);
+ pause()
+ start(dq);
+end
 
 
 return;
