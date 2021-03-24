@@ -1,3 +1,5 @@
 # PLIF-PIV-Trigger ([interactive notebook style)](https://github.com/ytanimoto/PLIF-PIV-Trigger/blob/f841a183cebb688fffc2edb1b9794d0a5b780401/Combined_PLIF_PIV_Notes.ipynb)
 
 In this notebook I outline the code to generate the analogue voltage signal used to control a galvonometer scanner, and digital voltage used to trigger two cameras. It is quite common in experimental fluid mechanics to use a pulsed laser system for a dual PIV (particle image velocimetry) and PLIF (planer laser induced fluorescence), but using scanner mirror will ensure 1. a more uniform light sheet, and 2. a stronger light intensity throughout the image because the beam is not being diluted by a lens. However it goes get more tricky and finicky!
+
+Also this is my first time using Github, so thanks for your patience while I figure it all out!
