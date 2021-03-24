@@ -2,8 +2,8 @@
 
 In this notebook I outline the code to generate the analogue voltage signal used to control a galvonometer scanner, and digital voltage used to trigger two cameras. It is quite common in experimental fluid mechanics to use a pulsed laser system for a dual PIV (particle image velocimetry) and PLIF (planer laser induced fluorescence), but using scanner mirror will ensure 
 1. a more uniform light sheet, and 
-2. 2. a stronger light intensity throughout the image because the beam is not being diluted by a lens. 
+2. a stronger light intensity throughout the image because the beam is not being diluted by a lens. 
 
- However it goes get more tricky and finicky!
+However it goes get more tricky and finicky as the sweeps need to be exactly sychronized with the shutter speed of the camera.
 
 Also this is my first time using Github, so thanks for your patience while I figure it all out!
